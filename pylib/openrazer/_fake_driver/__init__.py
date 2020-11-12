@@ -51,14 +51,8 @@ class FakeDevice(object):
             os.remove(path)
 
         if default is not None:
-            # Convert to bytes
-            if default.startswith("0x"):
-                default = bytes.fromhex(default[2:])
-            else:
-                default = default.encode('UTF-8')
-
-            with open(path, 'wb') as f:
-                f.write(default)
+            with open(path, 'w') as f:
+                f.write(str(default))
         else:
             touch(path)
         os.chmod(path, chmod)
@@ -146,11 +140,8 @@ class FakeDevice(object):
         else:
             read_mode = 'r'
 
-        try:
-            with open(path, read_mode) as open_endpoint:
-                result = open_endpoint.read()
-        except UnicodeDecodeError as e:
-            return str(e)
+        with open(path, read_mode) as open_endpoint:
+            result = open_endpoint.read()
 
         return result
 

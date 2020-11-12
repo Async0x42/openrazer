@@ -6,7 +6,6 @@ import os
 import shutil
 import sys
 import tempfile
-import time
 
 PYLIB = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'pylib')
 sys.path.insert(1, PYLIB)
@@ -149,11 +148,7 @@ class FakeDevicePrompt(cmd.Cmd):
         Where state in 'up' 'down' and 'repeat'
         """
         if self._current_device is not None:
-            try:
-                event_file, key_id, value = arg.split(' ')
-            except ValueError:
-                print("Usage: event event_file key_id value")
-                return
+            event_file, key_id, value = arg.split(' ')
 
             if event_file not in self._device_map[self._current_device].events:
                 print("Event ID {0} is invalid".format(event_file))
@@ -189,11 +184,11 @@ def create_envionment(device_name, destination):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('device', metavar='DEVICE', nargs='*', help='Device config name')
+    parser.add_argument('device', metavar='DEVICE', nargs='+', help='Device config name')
     parser.add_argument('--dest', metavar='DESTDIR', required=False, default=None, help='Directory to create driver files in. If omitted then a tmp directory is used')
-    parser.add_argument('--all', action='store_true', help='Create all possible fake devices')
     parser.add_argument('--non-interactive', dest='interactive', action='store_false', help='Dont display prompt, just hang until killed')
     parser.add_argument('--clear-dest', action='store_true', help='Clear the destination folder if it exists before starting')
+    parser.add_argument('--create-only', action='store_true', help='Create the target structure and then exit')
 
     return parser.parse_args()
 
@@ -209,41 +204,30 @@ def run():
         if args.clear_dest and os.path.exists(destination):
             shutil.rmtree(destination, ignore_errors=True)
 
-    if args.all:
-        devices = fake_driver.SPECS
-    else:
-        devices = args.device
-
     device_map = {}
-    for device in devices:
+    for device in args.device:
         # Device name: FakeDriver
-        fake_device = create_envionment(device, destination)
-        if fake_device is not None:
-            device_map[device] = fake_device
+        device_map[device] = create_envionment(device, destination)
 
-    if len(device_map) == 0:
-        print("ERROR: No valid devices passed to script, you either need to pass devices as arguments or use '--all'")
-        sys.exit(1)
+    if not args.create_only:
 
-    # Register cleanup
-    if args.dest is None:
-        atexit.register(lambda: shutil.rmtree(destination, ignore_errors=True))
-    else:
-        for device in device_map.values():
-            # device = FakeDriver
-            atexit.register(device.close)
-
-    print("Device test directory: {0}".format(destination))
-
-    try:
-        if not args.interactive:
-            print("Sleeping forever, use Ctrl-C to exit...")
-            while True:
-                time.sleep(99999999)
+        # Register cleanup
+        if args.dest is None:
+            atexit.register(lambda: shutil.rmtree(destination, ignore_errors=True))
         else:
-            FakeDevicePrompt(device_map).cmdloop()
-    except KeyboardInterrupt:
-        pass
+            for device in device_map.values():
+                # device = FakeDriver
+                atexit.register(device.close)
+
+        print("Device test directory: {0}".format(destination))
+
+        try:
+            if not args.interactive:
+                input()
+            else:
+                FakeDevicePrompt(device_map).cmdloop()
+        except KeyboardInterrupt:
+            pass
 
 
 if __name__ == '__main__':

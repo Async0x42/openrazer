@@ -23,6 +23,12 @@ class RazerChromaMugHolder(_RazerDeviceBrightnessSuspend):
 
     DEVICE_IMAGE = "https://assets2.razerzone.com/images/mug-holder/e64e507b73e61c44789d996065fd9645-1500x1000mug_01.jpg"
 
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets2.razerzone.com/images/mug-holder/e64e507b73e61c44789d996065fd9645-1500x1000mug_01.jpg",
+        "perspective_img": "https://assets2.razerzone.com/images/mug-holder/e64e507b73e61c44789d996065fd9645-1500x1000mug_01.jpg"
+    }
+
 
 class RazerChromaHDK(_RazerDeviceBrightnessSuspend):
     """
@@ -37,6 +43,11 @@ class RazerChromaHDK(_RazerDeviceBrightnessSuspend):
                'set_custom_effect', 'set_key_row']
 
     DEVICE_IMAGE = "https://assets2.razerzone.com/images/chromahdk2017/788b689d471fedbc0c5a175592316657-gallery-08.jpg"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets2.razerzone.com/images/chromahdk2017/788b689d471fedbc0c5a175592316657-gallery-08.jpg"
+    }
 
 
 class RazerBaseStationChroma(_RazerDeviceBrightnessSuspend):
@@ -53,6 +64,20 @@ class RazerBaseStationChroma(_RazerDeviceBrightnessSuspend):
 
     DEVICE_IMAGE = "https://rzrwarranty.s3.amazonaws.com/145dcc47f9f9d33b0bd07b066364704160f45e87b756d690b203decec7d1e87c.png"
 
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": DEVICE_IMAGE
+    }
+
+
+class RazerMouseDock(RazerBaseStationChroma):
+    HAS_MATRIX = False
+    USB_PID = 0x007E
+    EVENT_FILE_REGEX = re.compile(r'.*Razer_Mouse_Dock-if0(1|2)-event-kbd')
+    METHODS = ['get_device_type_accessory', 'set_static_effect', 'set_spectrum_effect', 'set_brightness',
+               'set_none_effect', 'set_breath_random_effect', 'set_breath_single_effect', 'set_breath_dual_effect',
+               'set_custom_effect', 'set_key_row']
+
 
 class RazerNommoChroma(_RazerDeviceBrightnessSuspend):
     """
@@ -68,6 +93,11 @@ class RazerNommoChroma(_RazerDeviceBrightnessSuspend):
 
     DEVICE_IMAGE = "https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/he6/h1a/8939927175198/nommo-gallery-1500x1000-11.jpg"
 
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": DEVICE_IMAGE
+    }
+
 
 class RazerNommoPro(_RazerDeviceBrightnessSuspend):
     """
@@ -82,3 +112,8 @@ class RazerNommoPro(_RazerDeviceBrightnessSuspend):
                'set_custom_effect', 'set_key_row']
 
     DEVICE_IMAGE = "https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/h89/hc4/9003754717214/razer-nommo-pro-audio-04.jpg"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": DEVICE_IMAGE
+    }

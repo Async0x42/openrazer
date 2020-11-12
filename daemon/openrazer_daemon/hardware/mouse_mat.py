@@ -18,6 +18,13 @@ class RazerFirefly(__RazerDeviceBrightnessSuspend):
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/594/594_firefly_500x500.png"
 
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets.razerzone.com/eeimages/support/products/594/594_firefly_500x500.png",
+        "side_img": "https://assets.razerzone.com/eeimages/products/21936/fireflycloth-gallery-6.png",
+        "perspective_img": "https://assets.razerzone.com/eeimages/products/21936/fireflycloth-gallery-3.png"
+    }
+
 
 class RazerFireflyHyperflux(__RazerDeviceBrightnessSuspend):
     """
@@ -26,11 +33,19 @@ class RazerFireflyHyperflux(__RazerDeviceBrightnessSuspend):
     USB_VID = 0x1532
     USB_PID = 0x0068
     HAS_MATRIX = True
-    MATRIX_DIMS = [1, 17]
-    METHODS = ['get_device_type_mousemat', 'set_static_effect', 'set_spectrum_effect', 'set_key_row', 'set_custom_effect',
-               'set_none_effect', 'set_breath_random_effect', 'set_breath_single_effect', 'set_breath_dual_effect']
+    MATRIX_DIMS = [1, 1]
+    METHODS = ['get_device_type_mousemat', 'set_static_effect', 'set_spectrum_effect',
+               'set_none_effect', 'set_breath_random_effect', 'set_breath_single_effect', 'set_breath_dual_effect',
+               'set_key_row']
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/594/594_firefly_500x500.png"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets.razerzone.com/eeimages/support/products/594/594_firefly_500x500.png",
+        "side_img": "https://assets.razerzone.com/eeimages/products/21936/fireflycloth-gallery-6.png",
+        "perspective_img": "https://assets.razerzone.com/eeimages/products/21936/fireflycloth-gallery-3.png"
+    }
 
 
 class RazerGoliathus(__RazerDeviceBrightnessSuspend):

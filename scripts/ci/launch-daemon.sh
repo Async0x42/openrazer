@@ -10,6 +10,7 @@
 env PYTHONPATH="pylib:daemon" \
 python3 ./daemon/run_openrazer_daemon.py \
     --foreground \
+    --verbose \
     --run-dir /tmp/daemon_stuff/data \
     --log-dir /tmp/daemon_stuff/logs \
     --test-dir /tmp/daemon_test \

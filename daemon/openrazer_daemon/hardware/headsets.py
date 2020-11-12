@@ -3,7 +3,7 @@ Headsets class
 """
 import re
 
-from openrazer_daemon.hardware.device_base import RazerDevice as __RazerDevice, RazerDeviceBrightnessSuspend as __RazerDeviceBrightnessSuspend
+from openrazer_daemon.hardware.device_base import RazerDevice as __RazerDevice
 from openrazer_daemon.dbus_services.dbus_methods import kraken as _dbus_kraken, chroma_keyboard as _dbus_chroma
 
 
@@ -19,6 +19,13 @@ class RazerKraken71(__RazerDevice):
                'set_static_effect', 'set_none_effect', 'get_current_effect_kraken']
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/229/229_kraken_71.png"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets.razerzone.com/eeimages/support/products/229/229_kraken_71.png",
+        "side_img": "https://assets.razerzone.com/eeimages/products/17519/03.png",
+        "perspective_img": "https://assets.razerzone.com/eeimages/products/17519/01.png"
+    }
 
     @staticmethod
     def decode_bitfield(bitfield):
@@ -87,6 +94,13 @@ class RazerKraken71Chroma(__RazerDevice):
                'get_current_effect_kraken', 'get_static_effect_args_kraken', 'get_breath_effect_args_kraken', 'set_custom_kraken']
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/280/280_kraken_71_chroma.png"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets.razerzone.com/eeimages/support/products/280/280_kraken_71_chroma.png",
+        "side_img": "https://assets.razerzone.com/eeimages/products/17519/03.png",
+        "perspective_img": "https://assets.razerzone.com/eeimages/products/17519/01.png"
+    }
 
     @staticmethod
     def decode_bitfield(bitfield):
@@ -157,6 +171,13 @@ class RazerKraken71V2(__RazerDevice):
                'get_current_effect_kraken', 'get_static_effect_args_kraken', 'get_breath_effect_args_kraken', 'set_custom_kraken']
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/729/729_kraken_71_v2.png"
+
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": "https://assets.razerzone.com/eeimages/support/products/729/729_kraken_71_v2.png",
+        "side_img": "https://assets.razerzone.com/eeimages/products/26005/kraken71v2_gallery01-v2.png",
+        "perspective_img": "https://assets.razerzone.com/eeimages/products/26005/kraken71v2_gallery03-v2.png"
+    }
 
     @staticmethod
     def decode_bitfield(bitfield):
@@ -239,6 +260,13 @@ class RazerKrakenUltimate(__RazerDevice):
 
     DEVICE_IMAGE = "https://assets.razerzone.com/eeimages/support/products/1603/rzr_kraken_ultimate_render01_2019_resized.png"
 
+    # Deprecated - RAZER_URLS be removed in future.
+    RAZER_URLS = {
+        "top_img": DEVICE_IMAGE,
+        "side_img": DEVICE_IMAGE,
+        "perspective_img": DEVICE_IMAGE
+    }
+
     @staticmethod
     def decode_bitfield(bitfield):
         return {
@@ -303,22 +331,3 @@ class RazerKrakenUltimate(__RazerDevice):
             _dbus_chroma.set_breath_triple_effect(self, *args)
 
         self.disable_notify = False
-
-
-class RazerKrakenKittyEdition(__RazerDeviceBrightnessSuspend):
-    """
-    Class for the Razer Kraken Kitty Edition
-    """
-    EVENT_FILE_REGEX = re.compile(r'.*Razer_Kraken_Kitty_Chroma_Control-event-if00')
-
-    USB_VID = 0x1532
-    USB_PID = 0x0F19
-    METHODS = ['get_device_type_headset',
-               'set_none_effect', 'set_static_effect', 'set_breath_random_effect', 'set_breath_single_effect',
-               'set_breath_dual_effect',
-               'set_custom_effect', 'set_key_row',
-               'set_brightness', 'get_brightness']
-    HAS_MATRIX = True
-    MATRIX_DIMS = [1, 4]
-
-    DEVICE_IMAGE = "https://hybrismediaprod.blob.core.windows.net/sys-master-phoenix-images-container/hda/h57/9055450103838/Kraken-Kitty-Edition-Black-gallery-Hero.jpg "
